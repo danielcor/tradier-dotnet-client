@@ -46,6 +46,9 @@ namespace TradierClient.Test.Tests
         {
             var start = TimingHelper.GetLastWednesday();
             var end = TimingHelper.GetLastThursday();
+            if (end < start)
+                start = start.AddDays(-7);
+
             var result = await _client.MarketData.GetHistoricalQuotes(symbol, interval, start, end);
             Assert.IsNotNull(result.Day);
             Assert.AreEqual(2, result.Day.Count);
